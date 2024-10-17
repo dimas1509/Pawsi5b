@@ -1,4 +1,4 @@
-const express= require('express');
+const express = require('express');
 const router = require('../../P3/routes');
 const route =express.Router();
 
@@ -6,7 +6,7 @@ router.use("/",(req,res)=>{
     //format data json 
     const data ={
         caption: "Mahasiswa",
-        layout = "layout/main-layout",
+        layout : "layout/main-layout",
         data:[
         {
             npm : "2226240136",
@@ -18,7 +18,7 @@ router.use("/",(req,res)=>{
         },
         {
             npm: "",
-            nama "icaa"
+            nama :""
         }
     ]
 };

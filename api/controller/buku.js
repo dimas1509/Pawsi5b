@@ -1,16 +1,6 @@
-var express = require('express');
-var router = express.Router();
-
 const Buku = require("../model/buku");
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond dari BUKU router');
-// });
 
-
-//format JSON
-//insert
-router.post('/', (req, res) => {
+const createBuku= (req, res)=> {
     const buku = new Buku({
         judul : req.body.judul,
         penulis : req.body.penulis,
@@ -23,12 +13,17 @@ router.post('/', (req, res) => {
                 message : "Data berhasil disimpan",
                 bookId : createdBuku._id
         });
+    })
+    .catch((err)=>{
+        //console.log(err);
+        res.status(500).json({
+            message: "interna; server error!"
+            //error : err
+        });
     });
-   
-});
+};
 
-//select
-router.get("/",(req, res)=>{
+const readBuku = (req, res) => {
     Buku.find()
     .then((documents)=>{
         res.status(201).json({
@@ -36,35 +31,48 @@ router.get("/",(req, res)=>{
             bukus : documents
         });
     });
-});
+};
 
-//delete
-router.delete('/:id', (req, res) => {
+const deleteBuku = (req, res) => {
     Buku.deleteOne({_id : req.params.id})
     .then((result)=>{
         res.status(200).json({
             message : "Buku berhasil dihapus ",
             result : result 
         });
+    })
+    .catch((err)=>{
+        //console.log(err);
+        res.status(500).json({
+            message: "interna; server error!"
+            //error : err
+        });
     });
-});
+};
 
-router.put('/:id', (req, res) => {
+const updateBuku = (req, res) => {
+    
     const buku = new Buku({
-        _id : req.params.id,
+        id : req.params.id,
         judul : req.body.judul,
         penulis : req.body.penulis,
         genre : req.body.genre
     });
 
-    Buku.updateOne({_id : req.params.id}, buku)
+    Buku.updateone({_id : req.params.id}, buku)
     .then((hasil)=>{
         res.status(200).json({
             message : "Update Berhasil",
             result : hasil    
         });
+    
+    }).catch((err) =>{ 
+        //console.log(err);
+        res.status(500).json({
+            message : "internal server error !"
+        });
     });
+};
 
-});
 
-module.exports = router;
+module.exports ={createBuku, readBuku, deleteBuku, updateBuku}
