@@ -19,11 +19,11 @@ export class BukuService {
 
     console.log(buku);
 
-    this.http.post<{message : String}>(this.url,buku)
-    .subscribe((response)=>{
-      console.log(response.message)
+    // this.http.post<{message : String}>(this.url,buku)
+    // .subscribe((response)=>{
+    //   console.log(response.message)
 
-    });
+    // });
 
 
   }
