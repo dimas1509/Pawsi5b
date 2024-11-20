@@ -1,31 +1,32 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+import { BukuService } from '../services/buku.service';
 
 @Component({
   selector: 'app-buku',
   templateUrl: './buku.component.html',
   styleUrl: './buku.component.css'
 })
-export class BukuComponent {
-
+export class BukuComponent{
+  constructor(public bukuService : BukuService){
+  }
   simpanBuku(form : NgForm){
 
     if (form.invalid){
       console.log("Tidak Valid");
-      //alert:("Data Tidak valid");
+      alert("Data Tidak valid");
       return;
     }
     let genres: string[] =[];
 
-    if (form.value.genre1=< true){
+    if (form.value.genre1==true){
       genres.push("Biografi");
     }
-    if (form.value.genre2=<true){
+    if (form.value.genre2==true){
       genres.push("Pendidikan");
     }
 
-    if(form.value.genre3=<true){
+    if(form.value.genre3==true){
       genres.push("Lainnya");
     }
     console.log("Pengujian Klik")
@@ -33,6 +34,7 @@ export class BukuComponent {
     console.log(form.value.penulis);
     console.log(genres);
 
-    this.bukuService.addBuku
+    this.bukuService.addBuku(form.value.judul, form.value.penulis,genres);
+
   }
 }
