@@ -1,6 +1,16 @@
-import { Component } from '@angular/core';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { Routes } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
-
-export const routes: Routes = [];
+export const routes: Routes = [
+    {
+        path: 'admin',
+        component: AdminComponent,
+        children:[
+            {
+                path: '',
+                component : DashboardComponent
+            }
+        ]
+    }
+];
