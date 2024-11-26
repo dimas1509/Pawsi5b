@@ -13,12 +13,18 @@ export class BukuComponent implements OnInit,OnDestroy{
   bukuList : Buku[] = []
   private getBukuSub : Subscription = new Subscription();
 
+  // Pagination
+  p: number = 1;
+
   constructor(public bukuService : BukuService){
-    
   }
+  
   ngOnInit(): void {
     this.getBukuSub = this.bukuService.getBukuListener()
-    .subscribe((value : Buku))
+    .subscribe((value : Buku[])=>{
+      this.bukuList = value;
+    });
+    this.bukuService.getBuku();
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
