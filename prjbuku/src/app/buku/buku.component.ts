@@ -1,16 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BukuService } from '../services/buku.service';
+import { Buku } from '../models/buku.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-buku',
   templateUrl: './buku.component.html',
   styleUrl: './buku.component.css'
 })
-export class BukuComponent{
+export class BukuComponent implements OnInit,OnDestroy{
+  bukuList : Buku[] = []
+  private getBukuSub : Subscription = new Subscription();
+
   constructor(public bukuService : BukuService){
+    
   }
-  simpanBuku(form : NgForm){
+  ngOnInit(): void {
+    this.getBukuSub = this.bukuService.getBukuListener()
+    .subscribe((value : Buku))
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
+  
+  mpanBuku(form : NgForm){
 
     if (form.invalid){
       console.log("Tidak Valid");
@@ -35,6 +49,7 @@ export class BukuComponent{
     console.log(genres);
 
     this.bukuService.addBuku(form.value.judul, form.value.penulis,genres);
+    form.resetForm();
 
   }
 }
