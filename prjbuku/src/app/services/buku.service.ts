@@ -8,9 +8,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class BukuService {
-  getBuku() {
-    throw new Error('Method not implemented.');
-  }
+
   // private url : string ="http://localhost:3000/buku"; 
   private url : string ="https://apisi51.vercel.app/buku/";
 
@@ -21,6 +19,7 @@ export class BukuService {
   getBukuListener(){
     return this.subjectBuku.asObservable();
   }
+  
   getBuku(){
     this.http.get<{message : string, bukus : Buku[]}>(this.url)
     .subscribe((value)=>{
@@ -38,7 +37,7 @@ export class BukuService {
     console.log(buku);
 
       
-      this.http.post<{message : String}>(this.url.buku)
+      this.http.post<{message : String}>(this.url,buku)
       .subscribe((response)=>{
         console.log(response.message)
       //console.log(response.message)
