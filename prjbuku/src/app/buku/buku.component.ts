@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 export class BukuComponent implements OnInit,OnDestroy{
   bukuList : Buku[] = []
   private getBukuSub : Subscription = new Subscription();
+  private messageSub : Subscription = new Subscription();
+  message : string
 
   // Pagination
   p: number = 1;
@@ -24,13 +26,15 @@ export class BukuComponent implements OnInit,OnDestroy{
     .subscribe((value : Buku[])=>{
       this.bukuList = value;
     });
+    this.messageSub = this.bukuService.exexuteBukuListener()
+    .subscribe(property)
     this.bukuService.getBuku();
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
   }
   
-  mpanBuku(form : NgForm){
+  SimpanBuku(form : NgForm){
 
     if (form.invalid){
       console.log("Tidak Valid");

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Buku } from '../models/buku.model';
 import { Subject } from 'rxjs';
+import { response } from 'express';
 
 
 @Injectable({
@@ -13,9 +14,13 @@ export class BukuService {
   private url : string ="https://apisi51.vercel.app/buku/";
 
   private subjectBuku = new Subject<Buku[]>();
+  private subjectExexute = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
+  exexuteBukuListener(){
+    return this.subjectExexute.asObservable();
+  }
   getBukuListener(){
     return this.subjectBuku.asObservable();
   }
@@ -34,15 +39,17 @@ export class BukuService {
     genre : genres
     }
 
-    console.log(buku);
-
-      
-      this.http.post<{message : String}>(this.url,buku)
+    // console.log(buku);
+    deleteBuku(buku : Buku){
+      this.http.delete<{message : string}>( this.url + buku._id)
       .subscribe((response)=>{
-        console.log(response.message)
-      //console.log(response.message)
-
-    });
-  }
+        console.log(response.message);
+        this.getBuku();
+      });
+     //   console.log(response.message);
+      //   this.getBuku();
+      // });
+  
+   
 }
 
