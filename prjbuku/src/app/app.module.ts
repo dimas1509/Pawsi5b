@@ -9,13 +9,15 @@ import { BukuComponent } from './buku/buku.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { EnvionmentComponent } from './envionment/envionment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     DashboardComponent,
-    BukuComponent
+    BukuComponent,
+    EnvionmentComponent
   ],
   imports: [
     BrowserModule,
